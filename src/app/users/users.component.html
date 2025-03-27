@@ -1,0 +1,21 @@
+@if (usersResource.isLoading()) {
+    <div>Loading users...</div>
+  } @else {
+    @if (usersResource.value().data.length === 0) {
+      <div>No users found.</div>
+    } @else {
+      <ul>
+        @for (user of usersResource.value().data; track user.id) {
+          <li>
+            <img [src]="user.avatar" alt="{{ user.first_name }} {{ user.last_name }}" />
+            <div>
+              <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+              <p>{{ user.email }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+      <button (click)="prevPage()" [disabled]="current_page() === 1">Previous</button>
+      <button (click)="nextPage()">Next</button>
+    }
+}
